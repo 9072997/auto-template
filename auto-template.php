@@ -11,9 +11,7 @@ if (!function_exists('startAutoTemplate')) {
         // logout links) we need to wait to evaluate it until the end of the
         // script. If not we will normalize it to a function.
         if (!is_callable($menuItems)) {
-            $menuItems = function () use ($menuItems) {
-                return $menuItems;
-            };
+            $menuItems = fn() => $menuItems;
         }
         
         ob_start();
