@@ -1,6 +1,7 @@
 {
     "name": "9072997/auto-template",
     "description": "automagically make simple PHP scripts look like real websites",
+    "license": "Unlicense",
     "require": {
         "php": ">=7.2"
     },
