@@ -1,0 +1,12 @@
+{
+    "name": "9072997/auto-template",
+    "description": "automagically make simple PHP scripts look like real websites",
+    "require": {
+        "php": ">=7.2"
+    },
+    "autoload": {
+        "files": [
+            "auto-template.php"
+        ]
+    }
+}
