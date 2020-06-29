@@ -92,8 +92,9 @@ class AutoTemplate
         ob_start();
         
         // register a shutdown function to print all the saved stuff inside
-        // our template
-        register_shutdown_function($this->runTemplate);
+        // our template. I'm not totally sure why we have to wrap the method
+        // in an arrow function like this.
+        register_shutdown_function(fn() => $this->runTemplate());
     }
     
     // this sets the page title prefixed by the site title. For a site title
