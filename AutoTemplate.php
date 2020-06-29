@@ -163,7 +163,7 @@ class AutoTemplate
         </div>
     </div>
     <div id="page-wrapper">
-<?=$pageHtml?>
+<?=$this->pageHtml?>
     </div>
 </body>
 </html><?php
