@@ -4,6 +4,9 @@ namespace AutoTemplate;
 class AutoTemplate
 {
     private array $shutdownFuncs = [];
+    private bool $obActive = true;
+    // read only unless you know what you are doing
+    public bool $enabled = true;
     public string $siteTitle;
     public string $pageTitle;
     public array $menuItems;
@@ -97,6 +100,22 @@ class AutoTemplate
         register_shutdown_function(fn() => $this->runTemplate());
     }
     
+    // allows you to abort applying the template
+    public function disable(): void
+    {
+        $this->enabled = false;
+        
+        // in case we already got the contents of the output buffer
+        echo $this->bodyHTML;
+        $this->bodyHTML = '';
+        
+        if ($this->obActive) {
+            // stop output buffering and send contents of the current buffer
+            ob_end_flush();
+            $this->obActive = false;
+        }
+    }
+    
     // this sets the page title prefixed by the site title. For a site title
     // of 'Example' and a page title of 'Home', the page title would end up
     // being 'Example - Home'
@@ -129,12 +148,22 @@ class AutoTemplate
     
     private function runTemplate(): void
     {
+        // if we got disabled, do nothing
+        if (!$this->enabled) {
+            return;
+        }
+        
         // get main HTML from the output buffer
         $this->pageHtml = ob_get_clean();
+        $this->obActive = false;
         
         // call all the shutdown functions
         foreach ($this->shutdownFuncs as $func) {
             $func($this);
+            // if a shutdown function disabled us, stop
+            if (!$this->enabled) {
+                return;
+            }
         }
         
         // start printing the template
