@@ -1,3 +1,7 @@
+**NOTE**: This is the dev branch. Right now this includes some copyrighted
+logos. I am working on a way to make those easily replaced (not baked in).
+You should probably use a named version.
+
 # auto-template
 A PHP library to automagically make simple PHP scripts look like real websites
 

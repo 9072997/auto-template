@@ -16,66 +16,62 @@ class AutoTemplate
     public string $css = '
         body {
             margin: 0;
-            padding: 0;
-            background: #334467;
-            font-family: sans-serif;
+            font-family: Tahoma,Verdana,Segoe,sans-serif; 
             font-size: 12pt;
-            color: #e5eeff;
-        }
-        h1, h2, h3 {
-            margin: 0;
-            padding: 0;
             color: white;
+            background: #1d2d33;
         }
         a {
-            color: #16a085;
+            color: #198a98;
         }
         a:hover {
             text-decoration: none;
         }
-        #header-wrapper {
-            overflow: hidden;
+        header {
+            background: #032d49;
+            display: flex;
+            margin-bottom: 1em;
+        }
+        #logo-container {
+            flex-grow: 1;
+            margin: auto;
+        }
+        @media(max-width: 50em) {
+            #logo-container {
+                display: none;
+            }
+        }
+        #logo {
+            height: 2em;
+            width: auto;
+            padding-left: 0.3em;
+        }
+        nav {
+            display: inline-block;
+            margin: auto;
+        }
+        nav  ul {
+            display: inline-block;
+            text-align: center;
+            margin: 0;
             padding: 0;
         }
-        #header {
-            text-align: center;
-            margin: 0 auto;
-        }
-        #header h1 {
-            display: inline-block;
-            margin-bottom: .2em;
-            padding: .2em .9em;
-            font-size: 3.5em;
-        }
-        #header a {
-            text-decoration: none;
-            color: white;
-        }
-        #menu ul {
-            display: inline-block;
-            padding: 0 2em;
-            text-align: center;
-        }
-        #menu li {
+        nav li {
             display: inline-block;
         }
-        #menu li a {
+        nav li a {
             display: inline-block;
-            padding: 1.3em 1.5em;
-            text-decoration: none;
-            font-size: .9em;
-            font-weight: 600;
+            padding: 1em;
+            font-size: 90%;
+            font-weight: bold;
             text-transform: uppercase;
             outline: 0;
             color: white;
+            text-decoration: none;
+            transition: 0.3s;
         }
-        #menu li:hover a {
-            background: #3e5a99;
-        }
-        #page-wrapper {
-            overflow: hidden;
-            padding: 0;
-            margin: 0 1em;
+        nav li:hover a {
+            background: #198a98;
         }
     ';
     
@@ -172,28 +168,25 @@ class AutoTemplate
 <head>
     <title><?=$this->pageTitle?></title>
     <style><?=$this->css?></style>
+    <link rel="icon" href="data:image/svg+xml;base64,<?=base64_encode(file_get_contents(__DIR__ . '/favicon.svg'))?>"/>
     <?=$this->headHTML?>
 </head>
 <body>
-    <div id="header-wrapper">
-        <div id="header" class="container">
-            <h1><?=$this->siteTitle?></h1>
-            <div id="menu">
-                <ul>
-                    <?php
-                        foreach ($this->menuItems as $title => $link) {
-                            $title = htmlspecialchars($title, ENT_HTML5);
-                            $link = htmlspecialchars($link, ENT_HTML5 | ENT_COMPAT);
-                            echo "<li><a href=\"$link\">$title</a></li>\n";
-                        }
-                    ?>
-                </ul>
-            </div>
+    <header>
+        <div id="logo-container">
+            <?php require __DIR__ . '/logo.svg' ?>
         </div>
-    </div>
-    <div id="page-wrapper">
+        <nav>
+            <ul><?php
+                foreach ($this->menuItems as $title => $link) {
+                    $title = htmlspecialchars($title, ENT_HTML5);
+                    $link = htmlspecialchars($link, ENT_HTML5 | ENT_COMPAT);
+                    echo "<li><a href=\"$link\">$title</a></li>";
+                }
+            ?></ul>
+        </nav>
+    </header>
 <?=$this->pageHtml?>
-    </div>
 </body>
 </html><?php
         // end of printing the template
