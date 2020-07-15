@@ -166,9 +166,10 @@ class AutoTemplate
 ?><!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?=$this->pageTitle?></title>
     <style><?=$this->css?></style>
-    <link rel="icon" href="data:image/svg+xml;base64,<?=base64_encode(file_get_contents(__DIR__ . '/favicon.svg'))?>"/>
+    <link rel="icon" href="data:image/svg+xml;base64,<?=base64_encode(file_get_contents(__DIR__ . '/favicon.svg'))?>" />
     <?=$this->headHTML?>
 </head>
 <body>
