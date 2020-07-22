@@ -117,14 +117,14 @@ class AutoTemplate
             display: flex;
         }
         #logo {
-            height: 2em;
+            height: 1.5em;
             margin-right: 0.5em
         }
         header h1 {
             display: inline-block;
             font-family: "Oswald", sans-serif;
             font-weight: lighter;
-            font-size: 150%;
+            font-size: 120%;
             flex-grow: 1;
             margin: 0;
         }
@@ -142,7 +142,6 @@ class AutoTemplate
         }
         nav li a {
             font-size: 90%;
-            font-weight: bold;
             text-transform: uppercase;
             color: inherit;
             text-decoration: none;
