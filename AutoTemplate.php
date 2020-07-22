@@ -13,67 +13,7 @@ class AutoTemplate
     public string $headHTML = '';
     // this is only for use in shutdown callbacks
     public string $bodyHTML = '';
-    public string $css = '
-        body {
-            margin: 0;
-            font-family: Tahoma,Verdana,Segoe,sans-serif; 
-            font-size: 12pt;
-            color: white;
-            background: #1d2d33;
-        }
-        a {
-            color: #198a98;
-        }
-        a:hover {
-            text-decoration: none;
-        }
-        header {
-            background: #032d49;
-            display: flex;
-            margin-bottom: 1em;
-        }
-        #logo-container {
-            flex-grow: 1;
-            margin: auto;
-        }
-        @media(max-width: 50em) {
-            #logo-container {
-                display: none;
-            }
-        }
-        #logo {
-            height: 2em;
-            width: auto;
-            padding-left: 0.3em;
-        }
-        nav {
-            display: inline-block;
-            margin: auto;
-        }
-        nav  ul {
-            display: inline-block;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        nav li {
-            display: inline-block;
-        }
-        nav li a {
-            display: inline-block;
-            padding: 1em;
-            font-size: 90%;
-            font-weight: bold;
-            text-transform: uppercase;
-            outline: 0;
-            color: white;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-        nav li:hover a {
-            background: #198a98;
-        }
-    ';
+    public string $css = '';
     
     public function __construct(
         string $siteTitle,
@@ -168,15 +108,64 @@ class AutoTemplate
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?=$this->pageTitle?></title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Oswald&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: "Open Sans", sans-serif;
+        }
+        header {
+            display: flex;
+        }
+        #logo {
+            height: 2em;
+            margin-right: 0.5em
+        }
+        header h1 {
+            display: inline-block;
+            font-family: "Oswald", sans-serif;
+            font-weight: lighter;
+            font-size: 150%;
+            flex-grow: 1;
+            margin: 0;
+        }
+        nav {
+            display: inline-block;
+        }
+        nav  ul {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+        }
+        nav li {
+            display: inline-block;
+            margin: .5em;
+        }
+        nav li a {
+            font-size: 90%;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: inherit;
+            text-decoration: none;
+        }
+        @media(max-width: 60em) {
+            #logo {
+                display: none;
+            }
+        }
+        @media(max-width: 45em) {
+            header h1 {
+                display: none;
+            }
+        }
+    </style>
     <style><?=$this->css?></style>
     <link rel="icon" href="data:image/svg+xml;base64,<?=base64_encode(file_get_contents(__DIR__ . '/favicon.svg'))?>" />
     <?=$this->headHTML?>
 </head>
 <body>
     <header>
-        <div id="logo-container">
-            <?php require __DIR__ . '/logo.svg' ?>
-        </div>
+        <?php require __DIR__ . '/logo.svg' ?>
+        <h1><?=$this->siteTitle?></h1>
         <nav>
             <ul><?php
                 foreach ($this->menuItems as $title => $link) {
