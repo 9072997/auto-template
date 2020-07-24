@@ -5,6 +5,7 @@ class AutoTemplate
 {
     private array $shutdownFuncs = [];
     private bool $obActive = true;
+    public float $responsiveWidth;
     // read only unless you know what you are doing
     public bool $enabled = true;
     public string $siteTitle;
@@ -18,7 +19,8 @@ class AutoTemplate
     public function __construct(
         string $siteTitle,
         array $menuItems = [],
-        ?string $pageTitle = null
+        ?string $pageTitle = null,
+        float $responsiveWidth = 45
     ) {
         // if a page title was not given use the site title
         $pageTitle ??= $siteTitle;
@@ -26,6 +28,7 @@ class AutoTemplate
         $this->siteTitle = $siteTitle;
         $this->pageTitle = $pageTitle;
         $this->menuItems = $menuItems;
+        $this->responsiveWidth = $responsiveWidth;
         
         // stop printing output to the browser and start saving it instead
         ob_start();
@@ -146,12 +149,12 @@ class AutoTemplate
             color: inherit;
             text-decoration: none;
         }
-        @media(max-width: 60em) {
+        @media(max-width:  <?=$this->responsiveWidth + 15?>em) {
             #logo {
                 display: none;
             }
         }
-        @media(max-width: 45em) {
+        @media(max-width: <?=$this->responsiveWidth?>em) {
             header h1 {
                 display: none;
             }
