@@ -134,14 +134,17 @@ class AutoTemplate
         nav {
             display: inline-block;
         }
-        nav  ul {
+        nav ul {
             display: inline-block;
             margin: 0;
             padding: 0;
         }
         nav li {
             display: inline-block;
-            margin: .5em;
+            margin:  0.1em 0.25em;
+            padding:  0 0.25em;
+            background-color: #032d49;
+            color: white;
         }
         nav li a {
             font-size: 90%;
